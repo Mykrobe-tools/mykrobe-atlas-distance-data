@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import json
 
@@ -17,7 +18,7 @@ def main():
 
 
 def _call_genotypes(bigsi_result, samples):
-    num_probes = _count_line_number(bigsi_result) / 2
+    num_probes = int(_count_line_number(bigsi_result) / 2)
     matrix = _initialise_matrix(samples, num_probes)
     with open(bigsi_result, "r") as json_file:
         for i in range(num_probes):

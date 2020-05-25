@@ -46,9 +46,6 @@ process pasteGenotypeCalls {
         input:
         file call from genotype_calls_chunks.collect()
 
-        output:
-        file ${params.genotypecalls}
-
         """
         echo "$call" >> ${params.genotypecalls}
         """
