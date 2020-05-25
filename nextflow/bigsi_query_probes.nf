@@ -11,7 +11,7 @@ process splitLines {
 
         """
         #!/usr/bin/env bash
-        split -a 4 -l 1000 ${params.probes} chunk_
+        split -a 2 -l 10000 ${params.probes} chunk_
         """
 }
 
@@ -44,9 +44,9 @@ process parseBigsiQueryResults {
 process pasteGenotypeCalls {
 
         input:
-        file call from genotype_calls_chunks.collect()
+        file call from genotype_calls_chunks.toSortedList({ a, b -> a.name <=> b.name })
 
         """
-        echo "$call" >> ${params.genotypecalls}
+        paste -d "" $call > ${params.genotypecalls}
         """
 }
