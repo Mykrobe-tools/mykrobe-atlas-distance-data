@@ -9,4 +9,6 @@ nextflow run -c mykrobe-atlas-distance-data/nextflow/nextflow.config
     --probes mykrobe-atlas-distance-data/probes/probes.fa 
     --bigsiimage singularity/bigsi-latest.simg 
     --bigsiconfig bigsi/bigsi_config.yaml
+    --samplelist sample.list
+    --genotypecalls output.genotypecalls
 ```
