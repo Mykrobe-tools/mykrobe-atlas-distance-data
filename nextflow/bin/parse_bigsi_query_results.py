@@ -24,13 +24,10 @@ def _call_genotypes(bigsi_result, samples):
         for i in range(num_probes):
             ref_probe_result = json.loads(json_file.readline().rstrip('\n'))
             for r in ref_probe_result["results"]:
-                matrix[r["sample_name"]][i] = 1
+                matrix[r["sample_name"]][i] += 1
             alt_probe_result = json.loads(json_file.readline().rstrip('\n'))
             for r in alt_probe_result["results"]:
-                if matrix[r["sample_name"]][i] == 1:
-                    matrix[r["sample_name"]][i] = 0
-                else:
-                    matrix[r["sample_name"]][i] = 2
+                matrix[r["sample_name"]][i] += 2
     return matrix
 
 
