@@ -12,3 +12,11 @@ nextflow run -c mykrobe-atlas-distance-data/nextflow/nextflow.config
     --samplelist sample.list
     --genotypecalls output.genotypecalls
 ```
+The above pipeline will generate a file that contains the genotype calls for each sample 
+in the input sample list. The genotype calls could then be used to calculate distances
+among the samples in the sample list pairwise.
+```shell script
+python3 mykrobe-atlas-distance-data/nextflow/bin/calculate_distance.py \
+    --genotype-calls input.genotypecalls \
+    --out-distances output.distance.matrix
+```
