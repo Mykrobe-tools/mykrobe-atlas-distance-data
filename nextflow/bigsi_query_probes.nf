@@ -2,7 +2,7 @@ params.probes = ''
 params.bigsiimage = ''
 params.bigsiconfig = ''
 params.samplelist = ''
-params.distancematrix = ''
+params.genotypecalls = ''
 
 process splitLines {
 
@@ -46,20 +46,7 @@ process pasteGenotypeCalls {
         input:
         file call from genotype_calls_chunks.toSortedList({ a, b -> a.name <=> b.name })
 
-        output:
-        file 'out.genotype.calls' into genotype_calls_whole
-
         """
-        paste -d "" $call > out.genotype.calls
-        """
-}
-
-process calculateDistance {
-
-        input:
-        file calls from genotype_calls_whole
-
-        """
-        calculate_distance.py --genotype-calls $calls --out-distances ${params.distancematrix}
+        paste -d "" $call > ${params.genotypecalls}
         """
 }
