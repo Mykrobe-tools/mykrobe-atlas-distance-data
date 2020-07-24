@@ -17,6 +17,7 @@ in the input sample list. The genotype calls could then be used to calculate dis
 among the samples in the sample list pairwise.
 ```shell script
 python3 mykrobe-atlas-distance-data/nextflow/bin/calculate_distance.py \
-    --genotype-calls input.genotypecalls \
+    --genotype-calls1 input.genotypecalls1 \
+    --genotype-calls2 input.genotypecalls \
     --out-distances output.distance.matrix
 ```
