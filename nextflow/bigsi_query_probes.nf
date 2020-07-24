@@ -46,7 +46,20 @@ process pasteGenotypeCalls {
         input:
         file call from genotype_calls_chunks.toSortedList({ a, b -> a.name <=> b.name })
 
+        output:
+        file 'tmp.all.genotypecalls' into genotype_calls_all
+
         """
-        paste -d "" $call > ${params.genotypecalls}
+        paste -d "" $call > tmp.all.genotypecalls
+        """
+}
+
+process pasteSamplesAndGenotypeCalls {
+
+        input:
+        file calls from genotype_calls_all
+
+        """
+        paste ${params.samplelist} $calls > ${params.genotypecalls}
         """
 }
