@@ -14,7 +14,7 @@ def main():
 
     matrix = _call_genotypes(args.bigsi_result, samples)
     for s in samples:
-        print(''.join(str(x) for x in matrix[s]))
+        print(s, "\t", ''.join(str(x) for x in matrix[s]))
 
 
 def _call_genotypes(bigsi_result, samples):
