@@ -17,17 +17,17 @@ def main():
 
 
 def _get_nearest_leaves(tree_nodes, fd):
-    for line in f:
+    for line in fd:
         distances = line.rstrip().split('\t')
-        min = distances[1]
+        nearest_distance = distances[1]
         nearest_leaf = tree_nodes[1]
         for i in range(2, len(distances)):
-            if min > distances[i]:
-                min = distances[i]
+            if nearest_distance > distances[i]:
+                nearest_distance = distances[i]
                 nearest_leaf = tree_nodes[i]
         data = {
             "leaf_id": nearest_leaf,
-            "distance": min
+            "distance": nearest_distance
         }
         print('{}\t{}'.format(distances[0], json.dumps(data)))
 
