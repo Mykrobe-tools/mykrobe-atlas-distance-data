@@ -31,3 +31,6 @@ def _get_nearest_leaves(tree_nodes, fd):
         }
         print('{}\t{}'.format(distances[0], json.dumps(data)))
 
+
+if __name__ == "__main__":
+    main()
