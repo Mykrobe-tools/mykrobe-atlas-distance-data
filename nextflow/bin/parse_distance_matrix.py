@@ -19,14 +19,14 @@ def main():
 def _get_nearest_leaves(tree_nodes, fd):
     for line in fd:
         distances = line.rstrip().split('\t')
-        nearest_distance = distances[1]
+        nearest_distance = int(distances[1])
         nearest_leaf = tree_nodes[1]
         for i in range(2, len(distances)):
-            if nearest_distance > distances[i]:
-                nearest_distance = distances[i]
+            if nearest_distance > int(distances[i]):
+                nearest_distance = int(distances[i])
                 nearest_leaf = tree_nodes[i]
         data = {
-            "leaf_id": nearest_leaf,
+            "leaf_id": nearest_leaf.strip(),
             "distance": nearest_distance
         }
         print('{}\t{}'.format(distances[0], json.dumps(data)))
