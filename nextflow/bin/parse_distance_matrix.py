@@ -14,6 +14,8 @@ def main():
         target_list = first_line.rstrip().split('\t')
         if args.distance_threshold is None:
             _get_nearest_leaves(target_list, f)
+        else:
+            _get_nearest_neighbours(target_list, f, args.distance_threshold)
 
 
 def _get_nearest_leaves(tree_nodes, fd):
@@ -30,6 +32,20 @@ def _get_nearest_leaves(tree_nodes, fd):
             "distance": nearest_distance
         }
         print('{}\t{}'.format(distances[0], json.dumps(data)))
+
+
+def _get_nearest_neighbours(target_samples, fd, threshold):
+    for line in fd:
+        distances = line.rstrip().split('\t')
+        data = []
+        source_sample = distances[0].strip()
+        for i in range(1, len(distances)):
+            if threshold >= int(distances[i]) and target_samples[i] != source_sample:
+                data.append({
+                    "experiment_id": target_samples[i],
+                    "distance": int(distances[i])
+                })
+        print('{}\t{}'.format(source_sample, json.dumps(data)))
 
 
 if __name__ == "__main__":
