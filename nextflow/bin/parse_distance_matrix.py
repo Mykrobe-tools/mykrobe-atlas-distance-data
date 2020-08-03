@@ -12,7 +12,7 @@ def main():
     with open(args.distance_matrix, "r") as f:
         first_line = next(f)
         target_list = first_line.rstrip().split('\t')
-        if args.distance_threshold is not None:
+        if args.distance_threshold is None:
             _get_nearest_leaves(target_list, f)
 
 
