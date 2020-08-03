@@ -15,7 +15,7 @@ def main():
         if args.distance_threshold is None:
             _get_nearest_leaves(target_list, f)
         else:
-            _get_nearest_neighbours(target_list, f, args.distance_threshold)
+            _get_nearest_neighbours(target_list, f, int(args.distance_threshold))
 
 
 def _get_nearest_leaves(tree_nodes, fd):
