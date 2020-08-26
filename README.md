@@ -27,13 +27,14 @@ generate the json that is ready for inserting into the Distance API.
 For example, the following command produce the data for inserting sample's nearest leaf:
 ```shell script
 python3 mykrobe-atlas-distance-data/nextflow/bin/generate_nearest_leaf.py \
-    --distance-matrix input.distance.matrix.samples.tree \
+    --distance-matrix-sample-tree input.distance.matrix.samples.tree \
     > output.samples.tree.jsondata
 ```
 And for producing the data for inserting sample's nearest neighbours:
 ```shell script
 python3 mykrobe-atlas-distance-data/nextflow/bin/generate_nearest_neighbours.py \
-    --distance-matrix input.distance.matrix.samples.samples \
+    --distance-matrix-sample-sample input.distance.matrix.samples.samples \
+    --distance-matrix-sample-tree input.distance.matrix.samples.tree \
     --distance-threshold 20
     > output.samples.samples.jsondata.threshold.20
 ```
