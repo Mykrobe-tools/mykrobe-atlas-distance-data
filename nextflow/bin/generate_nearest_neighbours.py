@@ -15,7 +15,7 @@ def main():
         tree_leaf_list = first_line.rstrip().split('\t')
         sample_nearest_leaf = _get_sample_nearest_leaf(tree_leaf_list, f)
 
-    with open(args.distance_matrix, "r") as f:
+    with open(args.distance_matrix_sample_sample, "r") as f:
         first_line = next(f)
         target_list = first_line.rstrip().split('\t')
         _get_nearest_neighbours(target_list, sample_nearest_leaf, f, int(args.distance_threshold))
