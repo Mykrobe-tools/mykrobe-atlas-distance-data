@@ -18,6 +18,22 @@ among the samples in the sample list pairwise.
 ```shell script
 python3 mykrobe-atlas-distance-data/nextflow/bin/calculate_distance.py \
     --genotype-calls1 input.genotypecalls1 \
-    --genotype-calls2 input.genotypecalls \
+    --genotype-calls2 input.genotypecalls2 \
     --out-distances output.distance.matrix
+```
+The above script can be used to generate matrix for the distances between sample and sample
+and the distances between sample and tree leave. Once we have the distance matrix we can
+generate the json that is ready for inserting into the Distance API.
+For example, the following command produce the data for inserting sample's nearest leaf:
+```shell script
+python3 mykrobe-atlas-distance-data/nextflow/bin/generate_nearest_leaf.py \
+    --distance-matrix input.distance.matrix.samples.tree \
+    > output.samples.tree.jsondata
+```
+And for producing the data for inserting sample's nearest neighbours:
+```shell script
+python3 mykrobe-atlas-distance-data/nextflow/bin/generate_nearest_neighbours.py \
+    --distance-matrix input.distance.matrix.samples.samples \
+    --distance-threshold 20
+    > output.samples.samples.jsondata.threshold.20
 ```
