@@ -26,13 +26,12 @@ def _get_sample_nearest_leaf(tree_nodes, fd):
     for line in fd:
         distances = line.rstrip().split('\t')
         nearest_distance = int(distances[1])
-        sample = tree_nodes[0].strip()
         nearest_leaf = tree_nodes[1]
         for i in range(2, len(distances)):
             if nearest_distance > int(distances[i]):
                 nearest_distance = int(distances[i])
                 nearest_leaf = tree_nodes[i]
-        _sample_nearest_leaf[sample] = nearest_leaf.strip()
+        _sample_nearest_leaf[distances[0].strip()] = nearest_leaf.strip()
 
     return _sample_nearest_leaf
 
