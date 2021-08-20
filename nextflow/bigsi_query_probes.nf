@@ -38,7 +38,7 @@ process parseBigsiQueryResults {
         file 'parsed_bigsi_query_results_chunk_*' into genotype_calls_chunks
 
         """
-        parse_bigsi_query_results.py --bigsi-result $json --sample-list ${params.samplelist} > parsed_$json
+        parse_query_results.py --query-result $json --sample-list ${params.samplelist} > parsed_$json
         """
 }
 

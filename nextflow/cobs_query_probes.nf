@@ -35,17 +35,17 @@ process queryCobs {
         """
 }
 
-process parseBigsiQueryResults {
+process parseCobsQueryResults {
         memory '3000 MB'
 
         input:
         file json from cobsResults
 
         output:
-        file 'parsed_bigsi_query_results_chunk_*' into genotype_calls_chunks
+        file 'parsed_cobs_query_results_chunk_*' into genotype_calls_chunks
 
         """
-        parse_bigsi_query_results.py --bigsi-result $json --sample-list ${sample_list} > parsed_bigsi_query_results_chunk_$json
+        parse_query_results.py --query-result $json --sample-list ${sample_list} > parsed_cobs_query_results_chunk_$json
         """
 }
 
