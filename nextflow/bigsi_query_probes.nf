@@ -29,6 +29,7 @@ process queryBigsi {
 }
 
 process parseBigsiQueryResults {
+        memory '3000 MB'
 
         input:
         file json from bigsi_query_results_chunks

@@ -38,3 +38,35 @@ python3 mykrobe-atlas-distance-data/nextflow/bin/generate_nearest_neighbours.py 
     --distance-threshold 20
     > output.samples.samples.jsondata.threshold.20
 ```
+
+## Distance matrix with large number of samples
+
+The more samples, the longer it will take to generate the distance matrix. As such, to shorten the time it takes, the genotype calls file can be split. For 1000 samples, it will take a little less than 2 hours.
+
+```shell script
+split -d --lines=1000 ./all_genotype_calls ./split_genotypecalls_X
+```
+Where X in the command above is a 2-digits number between 00 and n-1, n being the number of files generated.
+
+Once the genotype calls are split, create a script with distance matrix calculation commands for each of the files in the form of :
+
+```shell script
+python3 mykrobe-atlas-distance-data/nextflow/bin/calculate_distance.py \
+    --genotype-calls1 split_genotypecalls_X \
+    --genotype-calls2 all_genotypecalls \
+    --out-distances samples_distance_sub_matrix_X
+```
+
+A job array can be launched to parallelised the jobs :
+```shell script
+bsub -R "select[mem>5000] rusage[mem=5000]" -M5000 -e ./array.e -o ./array.o -J arr[1-(n)]%(n) "tail -n+\$LSB_JOBINDEX jobs.sh | head -1 | bash"
+```
+
+Once all split matrixes are created, to make them into one, a script as below should be run. There is one command for the header, and one command per sub-matrix.
+
+```shell script
+head -1 samples_distance_sub_matrix_00 > samples_distance_matrix
+tail -n +2 samples_distance_sub_matrix_00 >> samples_distance_matrix
+[...]
+tail -n +2 samples_distance_sub_matrix_(n+1) >> samples_distance_matrix
+```
