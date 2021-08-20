@@ -36,6 +36,7 @@ process queryCobs {
 }
 
 process parseBigsiQueryResults {
+        memory '3000 MB'
 
         input:
         file json from cobsResults
