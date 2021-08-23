@@ -12,6 +12,16 @@ nextflow run -c mykrobe-atlas-distance-data/nextflow/nextflow.config
     --samplelist sample.list
     --genotypecalls output.genotypecalls
 ```
+Or alternatively running the cobs query pipeline:
+```shell script
+nextflow run -c mykrobe-atlas-distance-data/nextflow/nextflow.config
+    mykrobe-atlas-distance-data/nextflow/cobs_query_probes.nf
+    --probes mykrobe-atlas-distance-data/probes/probes.fa
+    --image singularity/kms-latest.simg
+    --classic_index_dir merged/index
+    --sample_list sample.list
+    --output_genotype_call_path genotype_calls
+```
 The above pipeline will generate a file that contains the genotype calls for each sample 
 in the input sample list. The genotype calls could then be used to calculate distances
 among the samples in the sample list pairwise.

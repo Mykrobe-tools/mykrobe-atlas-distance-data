@@ -5,22 +5,22 @@ import json
 
 def main():
     arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('--bigsi-result', type=str)
-    arg_parser.add_argument('--sample-list', type=str)
+    arg_parser.add_argument('--query-result', type=str, required=True, help="probe query results in json format")
+    arg_parser.add_argument('--sample-list', type=str, required=True, help="file containing a list of sample names")
     args = arg_parser.parse_args()
 
     with open(args.sample_list, "r") as f:
         samples = [line.rstrip('\n') for line in f]
 
-    matrix = _call_genotypes(args.bigsi_result, samples)
+    matrix = _call_genotypes(args.query_result, samples)
     for s in samples:
         print(''.join(str(x) for x in matrix[s]))
 
 
-def _call_genotypes(bigsi_result, samples):
-    num_probes = int(_count_line_number(bigsi_result) / 2)
+def _call_genotypes(query_result, samples):
+    num_probes = int(_count_line_number(query_result) / 2)
     matrix = _initialise_matrix(samples, num_probes)
-    with open(bigsi_result, "r") as json_file:
+    with open(query_result, "r") as json_file:
         for i in range(num_probes):
             ref_probe_result = json.loads(json_file.readline().rstrip('\n'))
             for r in ref_probe_result["results"]:
